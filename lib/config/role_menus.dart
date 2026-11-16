@@ -37,7 +37,8 @@ class RoleMenus {
     'Nhật ký hệ thống',
   ];
 
-  static List<String> getMenuForRole(String role) {
+  /// Trả về null nếu role không hợp lệ; caller xử lý redirect/khóa.
+  static List<String>? getMenuForRoleOrNull(String role) {
     switch (role) {
       case 'Sinh viên':
         return studentMenu;
@@ -46,8 +47,14 @@ class RoleMenus {
       case 'Quản trị viên':
         return adminMenu;
       case 'Quản lý KTX':
-      default:
         return managerMenu;
+      default:
+        return null;
     }
+  }
+
+  /// Giữ backward-compat; role không hợp lệ trả về list rỗng thay vì managerMenu.
+  static List<String> getMenuForRole(String role) {
+    return getMenuForRoleOrNull(role) ?? const [];
   }
 }

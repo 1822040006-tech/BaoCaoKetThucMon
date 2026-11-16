@@ -29,7 +29,8 @@ class RoleWelcomeCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(23),
         boxShadow: const [
-          BoxShadow(color: Color(0x1B244C91), blurRadius: 24, offset: Offset(0, 10)),
+          BoxShadow(
+              color: Color(0x1B244C91), blurRadius: 24, offset: Offset(0, 10)),
         ],
       ),
       child: Stack(
@@ -40,7 +41,9 @@ class RoleWelcomeCard extends StatelessWidget {
             child: Container(
               width: 230,
               height: 230,
-              decoration: BoxDecoration(color: Colors.white.withOpacity(.045), shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: .045),
+                  shape: BoxShape.circle),
             ),
           ),
           Positioned(
@@ -49,7 +52,10 @@ class RoleWelcomeCard extends StatelessWidget {
             child: Container(
               width: 200,
               height: 200,
-              decoration: BoxDecoration(border: Border.all(color: Colors.white.withOpacity(.08), width: 24), shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Colors.white.withValues(alpha: .08), width: 24),
+                  shape: BoxShape.circle),
             ),
           ),
           Padding(
@@ -61,23 +67,50 @@ class RoleWelcomeCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                        decoration: BoxDecoration(color: Colors.white.withOpacity(.11), borderRadius: BorderRadius.circular(30), border: Border.all(color: Colors.white.withOpacity(.08))),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 6),
+                        decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: .11),
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                                color: Colors.white.withValues(alpha: .08))),
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.waving_hand_rounded, size: 13, color: Color(0xFFB7D1FF)),
+                            Icon(Icons.waving_hand_rounded,
+                                size: 13, color: Color(0xFFB7D1FF)),
                             SizedBox(width: 6),
-                            Text('XIN CHÀO, CHÚC BẠN MỘT NGÀY TỐT LÀNH', style: TextStyle(color: Color(0xFFE2ECFF), fontSize: 8, letterSpacing: .45, fontWeight: FontWeight.w800)),
+                            Flexible(
+                              child: Text(
+                                'XIN CHÀO, CHÚC BẠN MỘT NGÀY TỐT LÀNH',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: Color(0xFFE2ECFF),
+                                    fontSize: 8,
+                                    letterSpacing: .45,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 14),
-                      Text(title, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w800, height: 1.25, letterSpacing: -.4)),
+                      Text(title,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                              height: 1.25,
+                              letterSpacing: -.4)),
                       const SizedBox(height: 8),
                       ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 650),
-                        child: Text(subtitle, style: const TextStyle(color: Color(0xFFD0DDF2), fontSize: 12, height: 1.6)),
+                        child: Text(subtitle,
+                            style: const TextStyle(
+                                color: Color(0xFFD0DDF2),
+                                fontSize: 12,
+                                height: 1.6)),
                       ),
                     ],
                   ),
@@ -88,9 +121,16 @@ class RoleWelcomeCard extends StatelessWidget {
                     width: 82,
                     height: 82,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Colors.white.withOpacity(.17), Colors.white.withOpacity(.06)]),
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withValues(alpha: .17),
+                            Colors.white.withValues(alpha: .06)
+                          ]),
                       borderRadius: BorderRadius.circular(25),
-                      border: Border.all(color: Colors.white.withOpacity(.12)),
+                      border: Border.all(
+                          color: Colors.white.withValues(alpha: .12)),
                     ),
                     child: Icon(icon, color: const Color(0xFFD6E5FF), size: 39),
                   ),
@@ -130,8 +170,16 @@ class RoleStatGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final count = constraints.maxWidth >= 960 ? 4 : constraints.maxWidth >= 520 ? 2 : 1;
-        final ratio = count == 1 ? 1.9 : count == 2 ? 1.62 : 1.42;
+        final count = constraints.maxWidth >= 960
+            ? 4
+            : constraints.maxWidth >= 520
+                ? 2
+                : 1;
+        final ratio = count == 1
+            ? 1.9
+            : count == 2
+                ? 1.62
+                : 1.42;
         return GridView.count(
           crossAxisCount: count,
           shrinkWrap: true,
@@ -139,14 +187,16 @@ class RoleStatGrid extends StatelessWidget {
           crossAxisSpacing: 14,
           mainAxisSpacing: 14,
           childAspectRatio: ratio,
-          children: items.map((item) => StatCard(
-            label: item.label,
-            value: item.value,
-            note: item.note,
-            icon: item.icon,
-            accent: item.accent,
-            softColor: item.softColor,
-          )).toList(),
+          children: items
+              .map((item) => StatCard(
+                    label: item.label,
+                    value: item.value,
+                    note: item.note,
+                    icon: item.icon,
+                    accent: item.accent,
+                    softColor: item.softColor,
+                  ))
+              .toList(),
         );
       },
     );
@@ -190,7 +240,8 @@ class RoleShortcutCard extends StatelessWidget {
               Container(
                 width: 46,
                 height: 46,
-                decoration: BoxDecoration(color: softColor, borderRadius: BorderRadius.circular(14)),
+                decoration: BoxDecoration(
+                    color: softColor, borderRadius: BorderRadius.circular(14)),
                 child: Icon(icon, color: accent, size: 22),
               ),
               const SizedBox(width: 13),
@@ -199,9 +250,19 @@ class RoleShortcutCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(title, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 12, color: AppColors.text, fontWeight: FontWeight.w800)),
+                    Text(title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 12,
+                            color: AppColors.text,
+                            fontWeight: FontWeight.w800)),
                     const SizedBox(height: 5),
-                    Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10, color: AppColors.muted, height: 1.4)),
+                    Text(subtitle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 10, color: AppColors.muted, height: 1.4)),
                   ],
                 ),
               ),
@@ -209,8 +270,11 @@ class RoleShortcutCard extends StatelessWidget {
               Container(
                 width: 27,
                 height: 27,
-                decoration: BoxDecoration(color: const Color(0xFFF5F7FB), borderRadius: BorderRadius.circular(9)),
-                child: const Icon(Icons.arrow_forward_rounded, size: 14, color: AppColors.muted),
+                decoration: BoxDecoration(
+                    color: const Color(0xFFF5F7FB),
+                    borderRadius: BorderRadius.circular(9)),
+                child: const Icon(Icons.arrow_forward_rounded,
+                    size: 14, color: AppColors.muted),
               ),
             ],
           ),
@@ -228,7 +292,11 @@ class RoleShortcutGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final count = constraints.maxWidth >= 1100 ? 3 : constraints.maxWidth >= 680 ? 2 : 1;
+        final count = constraints.maxWidth >= 1100
+            ? 3
+            : constraints.maxWidth >= 680
+                ? 2
+                : 1;
         return GridView.count(
           crossAxisCount: count,
           crossAxisSpacing: 12,
@@ -248,7 +316,12 @@ class RoleInfoLine extends StatelessWidget {
   final String title;
   final String subtitle;
   final Widget? trailing;
-  const RoleInfoLine({super.key, required this.icon, required this.title, required this.subtitle, this.trailing});
+  const RoleInfoLine(
+      {super.key,
+      required this.icon,
+      required this.title,
+      required this.subtitle,
+      this.trailing});
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +332,9 @@ class RoleInfoLine extends StatelessWidget {
           Container(
             width: 40,
             height: 40,
-            decoration: BoxDecoration(color: AppColors.primarySoft, borderRadius: BorderRadius.circular(13)),
+            decoration: BoxDecoration(
+                color: AppColors.primarySoft,
+                borderRadius: BorderRadius.circular(13)),
             child: Icon(icon, size: 19, color: AppColors.primary),
           ),
           const SizedBox(width: 12),
@@ -267,9 +342,19 @@ class RoleInfoLine extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800, color: AppColors.text)),
+                Text(title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.text)),
                 const SizedBox(height: 4),
-                Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10, height: 1.45, color: AppColors.muted)),
+                Text(subtitle,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontSize: 10, height: 1.45, color: AppColors.muted)),
               ],
             ),
           ),

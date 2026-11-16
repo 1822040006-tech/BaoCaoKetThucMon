@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "261703423660",
+    "firebase_url": "https://dmp-firebase-2236f-default-rtdb.firebaseio.com",
+    "project_id": "dmp-firebase-2236f",
+    "storage_bucket": "dmp-firebase-2236f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261703423660:android:cee49615c3c6766175b109",
+        "android_client_info": {
+          "package_name": "com.example.dormhub_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUuz4I11micTh8bg52R6myEFw1hJ2t1FQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

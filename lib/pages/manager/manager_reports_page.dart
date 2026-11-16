@@ -48,7 +48,8 @@ class _ReportsPageWidgetState extends State<ReportsPageWidget> {
                 backgroundColor: Colors.white,
                 foregroundColor: AppColors.text,
                 side: const BorderSide(color: Color(0xFFE2E8F0)),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -61,7 +62,8 @@ class _ReportsPageWidgetState extends State<ReportsPageWidget> {
                   ),
                 );
               },
-              icon: const Icon(Icons.description_outlined, size: 16, color: Color(0xFF64748B)),
+              icon: const Icon(Icons.description_outlined,
+                  size: 16, color: Color(0xFF64748B)),
               label: const Text(
                 'Xuất Excel',
                 style: TextStyle(
@@ -122,14 +124,13 @@ class _ReportsPageWidgetState extends State<ReportsPageWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Tabs Row
-              Row(
+              Wrap(
+                spacing: 12,
+                runSpacing: 8,
                 children: [
                   _buildTabButton(0, 'Tổng hợp'),
-                  const SizedBox(width: 12),
                   _buildTabButton(1, 'Tài chính'),
-                  const SizedBox(width: 12),
                   _buildTabButton(2, 'Sinh viên'),
-                  const SizedBox(width: 12),
                   _buildTabButton(3, 'Vi phạm'),
                 ],
               ),
@@ -173,13 +174,13 @@ class _ReportsPageWidgetState extends State<ReportsPageWidget> {
           const SizedBox(height: 35),
           // Bar Chart Visualization
           SizedBox(
-            height: 140,
+            height: 160,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: monthlyRevenue.map((item) {
                 final val = double.parse(item['value']!);
-                final maxVal = 700.0;
+                const maxVal = 700.0;
                 final heightFactor = (val / maxVal).clamp(0.1, 1.0);
                 return Expanded(
                   child: Column(
@@ -189,7 +190,8 @@ class _ReportsPageWidgetState extends State<ReportsPageWidget> {
                         width: 14,
                         height: 110 * heightFactor,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF1D61F2).withOpacity(0.85),
+                          color:
+                              const Color(0xFF1D61F2).withValues(alpha: 0.85),
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
@@ -252,7 +254,8 @@ class _ReportsPageWidgetState extends State<ReportsPageWidget> {
     );
   }
 
-  Widget _buildOccupancyRow(String title, double value, String percentage, Color color) {
+  Widget _buildOccupancyRow(
+      String title, double value, String percentage, Color color) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -371,10 +374,14 @@ class _ReportsPageWidgetState extends State<ReportsPageWidget> {
                 ),
               ],
               rows: [
-                _buildMetricRow('Tổng sinh viên', '830', '842', '↑ +12', isPositive: true),
-                _buildMetricRow('Phòng đang dùng', '205', '210', '↑ +5', isPositive: true),
-                _buildMetricRow('Doanh thu', '614M đ', '634M đ', '↑ +3.2%', isPositive: true),
-                _buildMetricRow('Vi phạm mới', '8', '5', '↓ -37.5%', isPositive: false),
+                _buildMetricRow('Tổng sinh viên', '830', '842', '↑ +12',
+                    isPositive: true),
+                _buildMetricRow('Phòng đang dùng', '205', '210', '↑ +5',
+                    isPositive: true),
+                _buildMetricRow('Doanh thu', '614M đ', '634M đ', '↑ +3.2%',
+                    isPositive: true),
+                _buildMetricRow('Vi phạm mới', '8', '5', '↓ -37.5%',
+                    isPositive: false),
               ],
             ),
           ),
@@ -426,7 +433,9 @@ class _ReportsPageWidgetState extends State<ReportsPageWidget> {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
-              color: isPositive ? const Color(0xFF16A34A) : const Color(0xFF475569),
+              color: isPositive
+                  ? const Color(0xFF16A34A)
+                  : const Color(0xFF475569),
             ),
           ),
         ),

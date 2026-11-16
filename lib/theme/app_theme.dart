@@ -55,14 +55,40 @@ class AppTheme {
       fontFamilyFallback: fallbackFonts,
       visualDensity: VisualDensity.standard,
       textTheme: const TextTheme(
-        headlineLarge: TextStyle(color: AppColors.text, fontWeight: FontWeight.w800, letterSpacing: -0.7, fontFamilyFallback: fallbackFonts),
-        headlineMedium: TextStyle(color: AppColors.text, fontWeight: FontWeight.w800, letterSpacing: -0.5, fontFamilyFallback: fallbackFonts),
-        titleLarge: TextStyle(color: AppColors.text, fontWeight: FontWeight.w800, fontFamilyFallback: fallbackFonts),
-        titleMedium: TextStyle(color: AppColors.text, fontWeight: FontWeight.w700, fontFamilyFallback: fallbackFonts),
-        bodyLarge: TextStyle(color: AppColors.text, fontSize: 14, fontFamilyFallback: fallbackFonts),
-        bodyMedium: TextStyle(color: AppColors.text, fontSize: 13, fontFamilyFallback: fallbackFonts),
-        bodySmall: TextStyle(color: AppColors.muted, fontSize: 12, fontFamilyFallback: fallbackFonts),
-        labelLarge: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, fontFamilyFallback: fallbackFonts),
+        headlineLarge: TextStyle(
+            color: AppColors.text,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.7,
+            fontFamilyFallback: fallbackFonts),
+        headlineMedium: TextStyle(
+            color: AppColors.text,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.5,
+            fontFamilyFallback: fallbackFonts),
+        titleLarge: TextStyle(
+            color: AppColors.text,
+            fontWeight: FontWeight.w800,
+            fontFamilyFallback: fallbackFonts),
+        titleMedium: TextStyle(
+            color: AppColors.text,
+            fontWeight: FontWeight.w700,
+            fontFamilyFallback: fallbackFonts),
+        bodyLarge: TextStyle(
+            color: AppColors.text,
+            fontSize: 14,
+            fontFamilyFallback: fallbackFonts),
+        bodyMedium: TextStyle(
+            color: AppColors.text,
+            fontSize: 13,
+            fontFamilyFallback: fallbackFonts),
+        bodySmall: TextStyle(
+            color: AppColors.muted,
+            fontSize: 12,
+            fontFamilyFallback: fallbackFonts),
+        labelLarge: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 13,
+            fontFamilyFallback: fallbackFonts),
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
@@ -77,7 +103,8 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: const Color(0xFFFBFCFE),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         hintStyle: const TextStyle(color: AppColors.muted, fontSize: 13),
         labelStyle: const TextStyle(color: AppColors.muted, fontSize: 13),
         prefixIconColor: AppColors.muted,
@@ -105,10 +132,12 @@ class AppTheme {
           disabledForegroundColor: AppColors.muted,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           elevation: 0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
           textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
         ).copyWith(
-          overlayColor: WidgetStateProperty.all(Colors.white.withOpacity(.10)),
+          overlayColor:
+              WidgetStateProperty.all(Colors.white.withValues(alpha: .10)),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -116,7 +145,8 @@ class AppTheme {
           foregroundColor: AppColors.text,
           side: const BorderSide(color: AppColors.border),
           padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
           textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
         ),
       ),
@@ -124,7 +154,8 @@ class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor: AppColors.primary,
           textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),
       cardTheme: CardThemeData(
@@ -140,16 +171,20 @@ class AppTheme {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
-        titleTextStyle: const TextStyle(color: AppColors.text, fontSize: 18, fontWeight: FontWeight.w800),
+        titleTextStyle: const TextStyle(
+            color: AppColors.text, fontSize: 18, fontWeight: FontWeight.w800),
       ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         backgroundColor: AppColors.navy,
-        contentTextStyle: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500),
+        contentTextStyle: const TextStyle(
+            color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
       ),
-      dividerTheme: const DividerThemeData(color: AppColors.border, thickness: 1, space: 1),
-      progressIndicatorTheme: const ProgressIndicatorThemeData(color: AppColors.primary),
+      dividerTheme: const DividerThemeData(
+          color: AppColors.border, thickness: 1, space: 1),
+      progressIndicatorTheme:
+          const ProgressIndicatorThemeData(color: AppColors.primary),
     );
   }
 }

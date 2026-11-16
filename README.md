@@ -1,115 +1,100 @@
-# DormHub Flutter — phiên bản giao diện 1.4
+# DormHub
 
-Ứng dụng demo quản lý ký túc xá sinh viên, gồm đăng nhập/đăng ký và 4 khu vực chức năng riêng theo vai trò. Phiên bản 1.4 làm mới hệ thống giao diện theo hướng hiện đại, đồng bộ và responsive; mã nguồn được chia thành các file để dễ chỉnh sửa trong Visual Studio Code.
+DormHub là ứng dụng Flutter hỗ trợ quản lý ký túc xá sinh viên. Dự án minh họa cách tập trung các thông tin và quy trình thường gặp trong ký túc xá vào một ứng dụng, với giao diện riêng cho sinh viên, quản lý ký túc xá, kỹ thuật viên và quản trị viên.
 
-## Điểm mới về giao diện (1.4)
-- Đồng bộ bảng màu xanh navy – xanh dương, nền sáng và độ tương phản chữ.
-- Làm mới sidebar theo vai trò, trạng thái menu đang chọn và nhận diện DormHub.
-- Thiết kế lại thẻ thống kê, thẻ nội dung, trạng thái và tiêu đề trang.
-- Tạo điểm nhấn cho khu vực chào mừng trên dashboard và màn hình đăng nhập.
-- Cải thiện khoảng cách, bo góc, đổ bóng và bố cục ở màn hình nhỏ.
-- Giữ lại cấu trúc chức năng và dữ liệu demo hiện có.
-- Làm mới trang **Đăng ký phòng** theo bố cục thẻ tòa nhà A–D, số phòng trống và chú giải trạng thái.
-- Gộp danh sách **Đơn đăng ký của tôi** xuống ngay trang đăng ký phòng; bổ sung xem chi tiết, hủy đơn đang chờ duyệt và gửi đơn theo tòa/loại phòng.
-- Thiết kế lại trang **Theo dõi hợp đồng** theo ảnh mẫu: hợp đồng hiện tại, thông tin phòng/loại phòng/thời hạn/chi phí, các nút tải/gia hạn/chấm dứt và bảng lịch sử hợp đồng.
-- Tách các màn hình sinh viên (đăng ký phòng, hợp đồng, hóa đơn/thanh toán, báo sự cố/theo dõi sự cố) thành widget riêng; dữ liệu hợp đồng đi qua `ContractRepository` để sẵn sàng thay bằng API backend.
+> **Trạng thái:** Đây là dự án demo/đang phát triển, chưa phải hệ thống vận hành ký túc xá thực tế. Đăng nhập và hồ sơ tài khoản kết nối Firebase; phần lớn dữ liệu nghiệp vụ hiện vẫn là dữ liệu mẫu trong bộ nhớ.
 
-## Công nghệ
-- Flutter + Dart
-- Material 3
-- Dữ liệu demo dùng chung trong `lib/data/demo_store.dart`
-- Không yêu cầu gói ngoài ngoài Flutter SDK
+## Vì sao cần DormHub?
 
-## Chạy dự án
-1. Cài Flutter SDK, Google Chrome và extension **Flutter** + **Dart** trong Visual Studio Code.
-2. Giải nén ZIP và mở thư mục `dormhub_flutter_dart`.
-3. Mở Terminal tại thư mục dự án, chạy:
+Thông tin đăng ký phòng, hợp đồng, hóa đơn và yêu cầu sửa chữa thường nằm ở nhiều biểu mẫu hoặc kênh liên lạc khác nhau. DormHub hướng tới việc tập trung các quy trình đó để sinh viên dễ theo dõi yêu cầu của mình, còn nhân sự có thể xem và xử lý công việc theo vai trò.
 
-   ```bash
-   flutter doctor
-   flutter pub get
-   flutter run -d chrome
-   ```
+Ứng dụng cũng là nền tảng thực hành cho một ứng dụng Flutter đa vai trò, tích hợp Firebase Authentication và Cloud Firestore. Các lợi ích vận hành nêu trên là mục tiêu thiết kế; chưa phải tất cả đều được hỗ trợ bởi dữ liệu máy chủ trong phiên bản hiện tại.
 
-## Tài khoản demo
-Mật khẩu ban đầu của các tài khoản mẫu là `123456`.
+## Cách ứng dụng hoạt động
 
-| Vai trò | Email |
-|---|---|
-| Sinh viên | `sv@university.edu.vn` |
-| Quản lý KTX | `qlktx@university.edu.vn` |
-| Kỹ thuật viên | `kt@university.edu.vn` |
-| Quản trị viên | `admin@university.edu.vn` |
+1. Ứng dụng khởi tạo Firebase bằng cấu hình nền tảng trong `lib/firebase_options.dart`.
+2. Người dùng đăng nhập bằng email và mật khẩu qua Firebase Authentication.
+3. Sau khi xác thực, ứng dụng đọc hồ sơ `users/{uid}` trong Cloud Firestore để lấy vai trò và trạng thái tài khoản. Hồ sơ thiếu, không hợp lệ hoặc tài khoản bị khóa sẽ không được vào ứng dụng.
+4. Giao diện hiển thị khu vực phù hợp với vai trò. Các chức năng đăng ký sinh viên và gửi email đặt lại mật khẩu cũng sử dụng Firebase.
+5. Phần lớn dữ liệu phòng, đăng ký, hợp đồng, sự cố, hóa đơn, báo cáo và một số màn hình quản trị hiện lấy từ `lib/data/demo_store.dart`. Các thay đổi ở đây chỉ tồn tại trong bộ nhớ và sẽ mất khi khởi động lại ứng dụng.
 
-Trang đăng nhập không cho chọn vai trò. Hệ thống xác định vai trò từ tài khoản đã đăng nhập. Đăng ký công khai chỉ tạo tài khoản **Sinh viên**; quyền Quản lý KTX, Kỹ thuật viên và Quản trị viên chỉ do quản trị viên cấp trong khu vực quản lý tài khoản.
+## Đối tượng và phạm vi sử dụng
 
-## Các thao tác đã nối trong bản demo
+| Vai trò | Chức năng được thể hiện trong giao diện |
+| --- | --- |
+| Sinh viên | Xem thông tin phòng, đăng ký phòng, xem hợp đồng và hóa đơn, gửi báo sự cố, xem thông báo và hồ sơ. |
+| Quản lý ký túc xá | Theo dõi đơn đăng ký, sinh viên, phòng, hợp đồng, công nợ, điện nước, vi phạm, thông báo và báo cáo. |
+| Kỹ thuật viên | Theo dõi yêu cầu sửa chữa, lịch bảo trì, vật tư và báo cáo. |
+| Quản trị viên | Xem tổng quan và giao diện quản lý tài khoản, phân quyền, cấu hình và nhật ký. |
 
-### Sinh viên
-- Xem tình trạng phòng trống của 4 tòa, nộp đơn theo tòa/loại phòng và theo dõi các đơn ngay trong trang **Đăng ký phòng**.
-- Xem chi tiết hoặc hủy đơn đang chờ duyệt; trạng thái được cập nhật trong phiên demo.
-- Gửi yêu cầu sửa chữa, chọn loại sự cố và theo dõi tiến độ.
-- Xem hóa đơn thuộc email của mình và xác nhận trạng thái thanh toán demo.
-- Xem/cập nhật tên trong hồ sơ.
+### Giới hạn hiện tại
 
-### Quản lý KTX
-- Duyệt hoặc từ chối đơn đăng ký. Khi duyệt đơn chưa có phòng, bản demo thử gán một phòng mẫu còn trống.
-- Thêm sinh viên, tạo hóa đơn, ghi nhận vi phạm.
-- Gán yêu cầu sửa chữa cho đội kỹ thuật và cập nhật trạng thái xử lý.
-- Xem số liệu tổng quan từ danh sách demo.
+- Dữ liệu nghiệp vụ nêu trên là dữ liệu mẫu; thao tác trên các màn hình đó không được lưu vào Firestore.
+- Màn hình quản trị tài khoản chỉ mô phỏng; ứng dụng chưa tạo, xóa hoặc khóa tài khoản Firebase thật từ màn hình này.
+- Thanh toán trực tuyến chưa tích hợp cổng thanh toán và xác nhận giao dịch thật. Không dùng bản demo để xử lý tiền hoặc dữ liệu vận hành.
+- Firebase được cấu hình cho **Android** và **web**. Các nền tảng iOS, macOS, Windows và Linux chưa được cấu hình trong dự án.
+- Muốn triển khai sử dụng thật cần xây dựng backend cho nghiệp vụ, hoàn thiện phân quyền và kiểm thử bảo mật, sao lưu, email, thanh toán cùng quy trình vận hành.
 
-### Kỹ thuật viên
-- Nhận xử lý và đánh dấu hoàn thành yêu cầu sửa chữa.
-- Nhập vật tư; khi mã vật tư đã tồn tại, số lượng được cộng vào tồn kho.
-- Xem lịch bảo trì mẫu và số liệu sự cố/tồn kho.
+## Tài khoản đăng nhập thử nghiệm
 
-### Quản trị viên
-- Tạo tài khoản, khóa hoặc mở khóa tài khoản.
-- Xem bảng quyền theo vai trò, nhật ký thao tác và cấu hình demo.
-- Khi tạo tài khoản từ khu vực quản trị, mật khẩu ban đầu là `123456`.
+Các tài khoản dưới đây được ghi nhận là tài khoản thử nghiệm của Firebase project đang cấu hình trong ứng dụng. Cả bốn tài khoản dùng chung mật khẩu demo:
 
-## Đăng ký và quên mật khẩu
-- Đăng ký kiểm tra họ tên, định dạng email, email trùng và mật khẩu xác nhận.
-- Tài khoản tự đăng ký luôn có quyền Sinh viên; không có bộ chọn vai trò trên màn hình đăng nhập/đăng ký.
-- Quên mật khẩu cho phép đặt mật khẩu mới trong bộ nhớ demo sau khi nhập email tài khoản. Đây không phải quy trình an toàn cho môi trường thực vì chưa có xác minh email.
+**Mật khẩu:** `123456`
 
-## Cấu trúc chính
+| Vai trò | Email đăng nhập |
+| --- | --- |
+| Quản trị viên | `admin@university.com` |
+| Quản lý ký túc xá | `manager@university.com` |
+| Kỹ thuật viên | `technician@university.com` |
+| Sinh viên (mã số `240001`) | `240001@university.com` |
 
-```text
-lib/
-├── main.dart
-├── data/
-│   ├── demo_store.dart                 # Dữ liệu demo dùng chung
-│   └── contracts/
-│       └── contract_repository.dart    # Giao diện repository + nguồn dữ liệu demo hợp đồng
-├── models/
-│   └── dorm_contract.dart              # Model hợp đồng, tách khỏi UI
-├── theme/
-│   └── app_theme.dart
-├── pages/
-│   ├── login_page.dart
-│   ├── home_page.dart                  # Khung điều hướng, nhận diện vai trò
-│   ├── dashboards/                     # Dashboard tách theo từng vai trò
-│   │   ├── dashboard_common.dart
-│   │   ├── student_dashboard.dart
-│   │   ├── manager_dashboard.dart
-│   │   ├── technician_dashboard.dart
-│   │   └── admin_dashboard.dart
-│   └── student/                        # Các màn hình nghiệp vụ sinh viên
-│       ├── room_booking_page.dart
-│       ├── contract_page.dart
-│       ├── billing_page.dart
-│       └── issue_pages.dart
-└── widgets/
-    ├── app_sidebar.dart
-    └── common_widgets.dart
+Tài khoản phải tồn tại trong Firebase Authentication và có hồ sơ tương ứng trong Firestore `users/{uid}` với vai trò/trạng thái hợp lệ. Vì vậy, tài khoản thử nghiệm có thể không dùng được nếu dữ liệu Firebase đã thay đổi hoặc bạn đang kết nối một Firebase project khác.
+
+> **Cảnh báo bảo mật:** `123456` là mật khẩu yếu, chỉ dành cho demo. Không dùng các tài khoản này với dữ liệu thật, không dùng lại mật khẩu cá nhân và không công khai README chứa thông tin đăng nhập nếu các tài khoản vẫn còn hoạt động. Hãy đổi mật khẩu hoặc vô hiệu hóa tài khoản thử nghiệm trước khi chia sẻ hay triển khai ứng dụng. Tính năng quên mật khẩu chỉ hữu ích khi bạn kiểm soát hộp thư của địa chỉ tài khoản.
+
+Sinh viên mới có thể đăng ký bằng mã số gồm đúng sáu chữ số; email được tạo theo dạng `<mã-sinh-viên>@university.com`. Đăng ký công khai chỉ cấp vai trò sinh viên. Tài khoản nhân sự cần được cấp riêng, không thể tự đăng ký vai trò quản lý, kỹ thuật viên hoặc quản trị viên từ ứng dụng.
+
+## Yêu cầu
+
+- Flutter SDK tương thích với Dart `>=3.3.0 <4.0.0` (xem `pubspec.yaml`).
+- Google Chrome để chạy web, hoặc thiết bị/máy ảo Android để chạy Android.
+- Kết nối Internet và Firebase project được cấu hình, bật phương thức đăng nhập Email/Password, có Firestore database và Security Rules phù hợp.
+
+## Cách chạy ứng dụng
+
+Mở terminal tại thư mục gốc dự án (thư mục chứa `pubspec.yaml`), sau đó tải các package:
+
+```sh
+flutter pub get
 ```
 
-### Chuẩn bị cho backend
-- `StudentContractPage` nhận `ContractRepository` qua constructor; hiện mặc định dùng `DemoContractRepository`. Khi có API, tạo implementation mới gọi REST endpoint rồi truyền vào widget.
-- `DormContract` là model giao tiếp giữa UI và nguồn dữ liệu; có thể ánh xạ JSON từ backend vào model.
-- Giữ `HomePage` làm khung điều hướng/kiểm tra vai trò; các màn hình sinh viên được tách riêng để không trộn UI với logic lưu dữ liệu.
-- Các thao tác trong bản hiện tại vẫn là demo, chưa gọi API thật hoặc triển khai phân quyền bảo mật phía máy chủ.
+### Chạy trên web
 
-## Giới hạn của bản demo
-Các dữ liệu và thao tác hiện được lưu trong bộ nhớ ứng dụng và sẽ mất khi tải lại hoặc khởi động lại. Xác nhận thanh toán không chuyển tiền thật; email không được gửi; đặt lại mật khẩu chưa xác minh email. Để triển khai thực tế cần API/CSDL, xác thực an toàn, kiểm soát quyền ở backend và lưu nhật ký phía máy chủ.
+```sh
+flutter run -d chrome
+```
+
+### Chạy trên Android
+
+Kết nối thiết bị Android hoặc khởi động máy ảo, rồi chạy:
+
+```sh
+flutter devices
+flutter run -d <device-id>
+```
+
+Thay `<device-id>` bằng mã thiết bị được liệt kê. Trong VS Code, có thể chọn thiết bị ở thanh trạng thái rồi chạy cấu hình Flutter từ `lib/main.dart`.
+
+Sau khi ứng dụng mở, đăng nhập bằng một tài khoản thử nghiệm ở trên. Ứng dụng cần mạng để xác thực và đọc hồ sơ Firestore. Nếu không đăng nhập được, hãy kiểm tra Firebase project/cấu hình nền tảng, phương thức Email/Password, tài khoản trong Authentication và document `users/{uid}` cùng các Firestore Rules.
+
+## Công nghệ và cấu hình liên quan
+
+- Flutter và Dart
+- Firebase Authentication cho đăng nhập, đăng ký sinh viên, đặt lại mật khẩu
+- Cloud Firestore cho hồ sơ người dùng
+- `lib/services/auth_service.dart`: xử lý xác thực và đọc hồ sơ
+- `lib/config/account_policy.dart`: quy ước email tài khoản nhân sự và mã sinh viên
+- `firestore.rules`: quy tắc truy cập Firestore; cần được rà soát trước khi triển khai
+- `android/app/google-services.json` và `lib/firebase_options.dart`: cấu hình Firebase cho các nền tảng hiện được hỗ trợ
+
+Firebase client configuration không thay thế cho việc bảo vệ dữ liệu. Trước khi sử dụng thật, hãy kiểm tra Firestore Security Rules, quyền truy cập theo vai trò và quy trình quản lý tài khoản.

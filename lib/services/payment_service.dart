@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
-import '../data/demo_store.dart';
 import '../models/payment_transaction.dart';
 
 /// Dịch vụ tích hợp API thanh toán trực tuyến cho DormHub.
@@ -20,8 +19,9 @@ class PaymentService {
   static const String vietQrAccountName = 'KY TUC XA DORMHUB';
 
   // Cấu hình VNPay Gateway Sandbox v2.1.0
-  static const String vnpTmnCode = 'DORMHUB1';
-  static const String vnpHashSecret = 'DORMHUBSECRETKEY2026VNPSHA512OK';
+  // Chỉ được cấu hình trên máy chủ tin cậy khi tích hợp VNPay thật.
+  static const String vnpTmnCode = '';
+  static const String vnpHashSecret = '';
   static const String vnpUrl = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
   static const String vnpReturnUrl = 'https://dormhub.university.edu.vn/payment/vnpay_return';
 
@@ -62,6 +62,9 @@ class PaymentService {
     String? bankCode,
     String? ipAddress,
   }) {
+    if (vnpTmnCode.isEmpty || vnpHashSecret.isEmpty) {
+      throw StateError('VNPay chưa được cấu hình trên máy chủ.');
+    }
     final now = DateTime.now();
     final createDate = '${now.year}'
         '${now.month.toString().padLeft(2, '0')}'
@@ -171,70 +174,8 @@ class PaymentService {
 
   /// Xác thực thanh toán thành công (Mô phỏng kiểm tra Webhook / IPN API)
   Future<bool> verifyAndCompletePayment(String transactionId) async {
-    // Giả lập độ trễ kết nối API cổng thanh toán
-    await Future.delayed(const Duration(milliseconds: 900));
-
-    final index = _transactions.indexWhere((t) => t.id == transactionId);
-    if (index == -1) return false;
-
-    final txn = _transactions[index];
-    txn.status = PaymentStatus.success;
-    txn.paidAt = DateTime.now();
-
-    // Sinh mã đối chiếu ngân hàng
-    final ref = 'BANK-REF-${DateTime.now().microsecondsSinceEpoch % 1000000000}';
-    _transactions[index] = PaymentTransaction(
-      id: txn.id,
-      billId: txn.billId,
-      title: txn.title,
-      amount: txn.amount,
-      payerEmail: txn.payerEmail,
-      payerName: txn.payerName,
-      method: txn.method,
-      status: PaymentStatus.success,
-      createdAt: txn.createdAt,
-      paidAt: DateTime.now(),
-      transactionReference: ref,
-      qrCodeUrl: txn.qrCodeUrl,
-      paymentUrl: txn.paymentUrl,
-      bankAccount: txn.bankAccount,
-      bankName: txn.bankName,
-      transferContent: txn.transferContent,
-    );
-
-    // Cập nhật trạng thái hóa đơn trong DemoStore
-    for (final bill in DemoStore.bills) {
-      if (bill['id'] == txn.billId || bill['email']?.toLowerCase() == txn.payerEmail.toLowerCase() && bill['status'] == 'Chưa thanh toán') {
-        if (bill['id'] == txn.billId) {
-          bill['status'] = 'Đã thanh toán';
-          bill['paidAt'] = DateTime.now().toString();
-          bill['paymentMethod'] = txn.method.displayName;
-          bill['paymentRef'] = ref;
-          break;
-        }
-      }
-    }
-
-    // Ghi nhật ký hệ thống
-    DemoStore.addAudit(
-      'Thanh toán online thành công qua ${txn.method.shortName}: ${txn.billId} (Số tiền: ${_formatMoney(txn.amount)})',
-      txn.payerName,
-    );
-
-    return true;
-  }
-
-  static String _formatMoney(double amount) {
-    final intVal = amount.toInt();
-    final str = intVal.toString();
-    final buffer = StringBuffer();
-    for (var i = 0; i < str.length; i++) {
-      if (i > 0 && (str.length - i) % 3 == 0) {
-        buffer.write('.');
-      }
-      buffer.write(str[i]);
-    }
-    return '${buffer.toString()} ₫';
+    // Chỉ backend xử lý webhook/IPN đã xác minh chữ ký mới được ghi nhận thanh toán.
+    return false;
   }
 }
 

@@ -93,7 +93,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
   }
 
   void _initTransaction() {
-    final amount = _parseAmount(widget.bill['amount'] ?? widget.bill['rentAmount'] ?? 0);
+    final amount =
+        _parseAmount(widget.bill['amount'] ?? widget.bill['rentAmount'] ?? 0);
     final billId = widget.bill['id']?.toString() ?? 'HD-DEMO';
     final title = widget.bill['title']?.toString() ?? 'Hóa đơn ký túc xá';
 
@@ -132,7 +133,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
 
     setState(() => _isProcessing = true);
 
-    final success = await PaymentService.instance.verifyAndCompletePayment(_currentTransaction!.id);
+    final success = await PaymentService.instance
+        .verifyAndCompletePayment(_currentTransaction!.id);
 
     if (!mounted) return;
 
@@ -146,7 +148,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
       setState(() => _isProcessing = false);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Xác thực thất bại hoặc chưa nhận được giao dịch. Vui lòng thử lại.'),
+          content: Text(
+              'Xác thực thất bại hoặc chưa nhận được giao dịch. Vui lòng thử lại.'),
           behavior: SnackBarBehavior.floating,
           backgroundColor: AppColors.red,
         ),
@@ -181,7 +184,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
-      insetPadding: EdgeInsets.symmetric(horizontal: isMobile ? 12 : 24, vertical: 24),
+      insetPadding:
+          EdgeInsets.symmetric(horizontal: isMobile ? 12 : 24, vertical: 24),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 560, maxHeight: 720),
         child: _isSuccess ? _buildSuccessView() : _buildPaymentForm(isMobile),
@@ -217,7 +221,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                   color: AppColors.primarySoft,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.payment_rounded, color: AppColors.primary, size: 22),
+                child: const Icon(Icons.payment_rounded,
+                    color: AppColors.primary, size: 22),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -226,12 +231,16 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                   children: [
                     const Text(
                       'Thanh toán trực tuyến',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: AppColors.text),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.text),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       '$billId • Phòng $room',
-                      style: const TextStyle(fontSize: 12, color: AppColors.muted),
+                      style:
+                          const TextStyle(fontSize: 12, color: AppColors.muted),
                     ),
                   ],
                 ),
@@ -253,7 +262,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
               children: [
                 // Khung số tiền thanh toán
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
                   decoration: BoxDecoration(
                     color: const Color(0xFFF1F5F9),
                     borderRadius: BorderRadius.circular(14),
@@ -267,7 +277,10 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                           children: [
                             Text(
                               billTitle,
-                              style: const TextStyle(fontSize: 13, color: AppColors.muted, fontWeight: FontWeight.w600),
+                              style: const TextStyle(
+                                  fontSize: 13,
+                                  color: AppColors.muted,
+                                  fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -282,7 +295,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(
                           color: Colors.amber.shade50,
                           borderRadius: BorderRadius.circular(8),
@@ -291,7 +305,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.timer_outlined, size: 14, color: Colors.amber.shade900),
+                            Icon(Icons.timer_outlined,
+                                size: 14, color: Colors.amber.shade900),
                             const SizedBox(width: 4),
                             Text(
                               _formatTimer(_countdownSeconds),
@@ -312,16 +327,22 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                 // Lựa chọn phương thức thanh toán
                 const Text(
                   'Chọn phương thức thanh toán',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: AppColors.text),
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.text),
                 ),
                 const SizedBox(height: 10),
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    _buildMethodChip(PaymentMethod.vietQR, 'VietQR (Napas 247)', Icons.qr_code_scanner_rounded),
-                    _buildMethodChip(PaymentMethod.vnpay, 'Cổng VNPay', Icons.account_balance_rounded),
-                    _buildMethodChip(PaymentMethod.momo, 'Ví MoMo', Icons.account_balance_wallet_rounded),
+                    _buildMethodChip(PaymentMethod.vietQR, 'VietQR (Napas 247)',
+                        Icons.qr_code_scanner_rounded),
+                    _buildMethodChip(PaymentMethod.vnpay, 'Cổng VNPay',
+                        Icons.account_balance_rounded),
+                    _buildMethodChip(PaymentMethod.momo, 'Ví MoMo',
+                        Icons.account_balance_wallet_rounded),
                   ],
                 ),
                 const SizedBox(height: 20),
@@ -364,14 +385,17 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                       : _selectedMethod == PaymentMethod.momo
                           ? const Color(0xFFA50064)
                           : AppColors.primary,
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
                 ),
                 icon: _isProcessing
                     ? const SizedBox(
                         width: 18,
                         height: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: Colors.white),
                       )
                     : const Icon(Icons.check_circle_outline_rounded, size: 18),
                 label: Text(
@@ -410,7 +434,9 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 16, color: isSelected ? AppColors.primary : AppColors.muted),
+            Icon(icon,
+                size: 16,
+                color: isSelected ? AppColors.primary : AppColors.muted),
             const SizedBox(width: 8),
             Text(
               label,
@@ -465,26 +491,33 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                     height: 220,
                     color: const Color(0xFFF1F5F9),
                     alignment: Alignment.center,
-                    child: Column(
+                    child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.qr_code_2_rounded, size: 64, color: AppColors.muted),
+                      children: [
+                        Icon(Icons.qr_code_2_rounded,
+                            size: 64, color: AppColors.muted),
                         SizedBox(height: 8),
-                        Text('Mã QR Napas 247', style: TextStyle(fontSize: 12, color: AppColors.muted)),
+                        Text('Mã QR Napas 247',
+                            style: TextStyle(
+                                fontSize: 12, color: AppColors.muted)),
                       ],
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.flash_on_rounded, size: 14, color: AppColors.green),
+                children: [
+                  Icon(Icons.flash_on_rounded,
+                      size: 14, color: AppColors.green),
                   SizedBox(width: 4),
                   Text(
                     'Quét mã bằng bất kỳ App Ngân hàng nào (Miễn phí 24/7)',
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.green),
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.green),
                   ),
                 ],
               ),
@@ -508,21 +541,25 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
               _buildInfoRow(
                 'Số tài khoản',
                 PaymentService.vietQrAccountNo,
-                () => _copyToClipboard(PaymentService.vietQrAccountNo, 'Số tài khoản'),
+                () => _copyToClipboard(
+                    PaymentService.vietQrAccountNo, 'Số tài khoản'),
               ),
               const Divider(height: 18),
-              _buildInfoRow('Chủ tài khoản', PaymentService.vietQrAccountName, null),
+              _buildInfoRow(
+                  'Chủ tài khoản', PaymentService.vietQrAccountName, null),
               const Divider(height: 18),
               _buildInfoRow(
                 'Số tiền',
                 _formatMoney(txn.amount),
-                () => _copyToClipboard(txn.amount.toInt().toString(), 'Số tiền'),
+                () =>
+                    _copyToClipboard(txn.amount.toInt().toString(), 'Số tiền'),
               ),
               const Divider(height: 18),
               _buildInfoRow(
                 'Nội dung CK',
                 txn.transferContent ?? '',
-                () => _copyToClipboard(txn.transferContent ?? '', 'Nội dung chuyển khoản'),
+                () => _copyToClipboard(
+                    txn.transferContent ?? '', 'Nội dung chuyển khoản'),
                 highlight: true,
               ),
             ],
@@ -553,7 +590,11 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 alignment: Alignment.center,
-                child: const Text('VNPAY', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 11)),
+                child: const Text('VNPAY',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 11)),
               ),
               const SizedBox(width: 14),
               const Expanded(
@@ -562,7 +603,10 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                   children: [
                     Text(
                       'Cổng thanh toán điện tử VNPAY-QR',
-                      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: Color(0xFF1E3A8A)),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 13,
+                          color: Color(0xFF1E3A8A)),
                     ),
                     SizedBox(height: 2),
                     Text(
@@ -578,32 +622,38 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
         const SizedBox(height: 16),
         const Text(
           'Chọn kênh thanh toán VNPay:',
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.text),
+          style: TextStyle(
+              fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.text),
         ),
         const SizedBox(height: 8),
-        RadioListTile<String>(
-          value: 'VNPAYQR',
+        RadioGroup<String>(
           groupValue: _vnpayBankOption,
-          onChanged: (val) => setState(() => _vnpayBankOption = val!),
-          title: const Text('Ứng dụng thanh toán hỗ trợ VNPAY-QR', style: TextStyle(fontSize: 13)),
-          dense: true,
-          contentPadding: EdgeInsets.zero,
-        ),
-        RadioListTile<String>(
-          value: 'VNBANK',
-          groupValue: _vnpayBankOption,
-          onChanged: (val) => setState(() => _vnpayBankOption = val!),
-          title: const Text('Thẻ ATM / Tài khoản ngân hàng nội địa', style: TextStyle(fontSize: 13)),
-          dense: true,
-          contentPadding: EdgeInsets.zero,
-        ),
-        RadioListTile<String>(
-          value: 'INTCARD',
-          groupValue: _vnpayBankOption,
-          onChanged: (val) => setState(() => _vnpayBankOption = val!),
-          title: const Text('Thẻ quốc tế (Visa, MasterCard, JCB)', style: TextStyle(fontSize: 13)),
-          dense: true,
-          contentPadding: EdgeInsets.zero,
+          onChanged: (val) {
+            if (val != null) setState(() => _vnpayBankOption = val);
+          },
+          child: const Column(children: [
+            RadioListTile<String>(
+              value: 'VNPAYQR',
+              title: Text('Ứng dụng thanh toán hỗ trợ VNPAY-QR',
+                  style: TextStyle(fontSize: 13)),
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+            ),
+            RadioListTile<String>(
+              value: 'VNBANK',
+              title: Text('Thẻ ATM / Tài khoản ngân hàng nội địa',
+                  style: TextStyle(fontSize: 13)),
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+            ),
+            RadioListTile<String>(
+              value: 'INTCARD',
+              title: Text('Thẻ quốc tế (Visa, MasterCard, JCB)',
+                  style: TextStyle(fontSize: 13)),
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+            ),
+          ]),
         ),
         const SizedBox(height: 10),
         Container(
@@ -619,16 +669,24 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Mã giao dịch (TxnRef):', style: TextStyle(fontSize: 11, color: AppColors.muted)),
-                  Text(txn.id, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700)),
+                  const Text('Mã giao dịch (TxnRef):',
+                      style: TextStyle(fontSize: 11, color: AppColors.muted)),
+                  Text(txn.id,
+                      style: const TextStyle(
+                          fontSize: 11, fontWeight: FontWeight.w700)),
                 ],
               ),
               const SizedBox(height: 6),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('Chuẩn chữ ký:', style: TextStyle(fontSize: 11, color: AppColors.muted)),
-                  Text('HMAC-SHA512 (v2.1.0)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.green)),
+                children: [
+                  Text('Chuẩn chữ ký:',
+                      style: TextStyle(fontSize: 11, color: AppColors.muted)),
+                  Text('HMAC-SHA512 (v2.1.0)',
+                      style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.green)),
                 ],
               ),
             ],
@@ -658,7 +716,11 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 alignment: Alignment.center,
-                child: const Text('MoMo', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 12)),
+                child: const Text('MoMo',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 12)),
               ),
               const SizedBox(width: 14),
               const Expanded(
@@ -667,7 +729,10 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                   children: [
                     Text(
                       'Thanh toán qua Ví MoMo',
-                      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: Color(0xFF831843)),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 13,
+                          color: Color(0xFF831843)),
                     ),
                     SizedBox(height: 2),
                     Text(
@@ -699,7 +764,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                 height: 180,
                 color: const Color(0xFFF1F5F9),
                 alignment: Alignment.center,
-                child: const Icon(Icons.qr_code_scanner_rounded, size: 64, color: Color(0xFFA50064)),
+                child: const Icon(Icons.qr_code_scanner_rounded,
+                    size: 64, color: Color(0xFFA50064)),
               ),
             ),
           ),
@@ -708,14 +774,18 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
     );
   }
 
-  Widget _buildInfoRow(String label, String value, VoidCallback? onCopy, {bool highlight = false}) {
+  Widget _buildInfoRow(String label, String value, VoidCallback? onCopy,
+      {bool highlight = false}) {
     return Row(
       children: [
         SizedBox(
           width: 110,
           child: Text(
             label,
-            style: const TextStyle(fontSize: 12, color: AppColors.muted, fontWeight: FontWeight.w600),
+            style: const TextStyle(
+                fontSize: 12,
+                color: AppColors.muted,
+                fontWeight: FontWeight.w600),
           ),
         ),
         Expanded(
@@ -744,7 +814,11 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                 children: [
                   Icon(Icons.copy_rounded, size: 12, color: AppColors.primary),
                   SizedBox(width: 4),
-                  Text('Sao chép', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.primary)),
+                  Text('Sao chép',
+                      style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.primary)),
                 ],
               ),
             ),
@@ -756,7 +830,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
   Widget _buildSuccessView() {
     final txn = _currentTransaction!;
     final now = DateTime.now();
-    final dateStr = '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year} '
+    final dateStr =
+        '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year} '
         '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
 
     return Padding(
@@ -771,12 +846,16 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
               color: AppColors.greenSoft,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.check_circle_rounded, color: AppColors.green, size: 48),
+            child: const Icon(Icons.check_circle_rounded,
+                color: AppColors.green, size: 48),
           ),
           const SizedBox(height: 16),
           const Text(
             'Thanh toán thành công!',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: AppColors.text),
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+                color: AppColors.text),
           ),
           const SizedBox(height: 6),
           Text(
@@ -798,13 +877,15 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
               children: [
                 _buildReceiptRow('Mã hóa đơn', txn.billId),
                 const Divider(height: 14),
-                _buildReceiptRow('Số tiền thanh toán', _formatMoney(txn.amount), isBold: true),
+                _buildReceiptRow('Số tiền thanh toán', _formatMoney(txn.amount),
+                    isBold: true),
                 const Divider(height: 14),
                 _buildReceiptRow('Phương thức', txn.method.displayName),
                 const Divider(height: 14),
                 _buildReceiptRow('Mã giao dịch', txn.id),
                 const Divider(height: 14),
-                _buildReceiptRow('Mã đối chiếu ngân hàng', txn.transactionReference ?? 'REF-ONLINE-OK'),
+                _buildReceiptRow('Mã đối chiếu ngân hàng',
+                    txn.transactionReference ?? 'REF-ONLINE-OK'),
                 const Divider(height: 14),
                 _buildReceiptRow('Thời gian', dateStr),
               ],
@@ -818,17 +899,20 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                 child: OutlinedButton.icon(
                   onPressed: () {
                     Clipboard.setData(ClipboardData(
-                      text: 'Biên lai thanh toán DormHub: ${txn.billId} - Số tiền: ${_formatMoney(txn.amount)} - Mã GD: ${txn.id} - Thời gian: $dateStr',
+                      text:
+                          'Biên lai thanh toán DormHub: ${txn.billId} - Số tiền: ${_formatMoney(txn.amount)} - Mã GD: ${txn.id} - Thời gian: $dateStr',
                     ));
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Đã sao chép thông tin biên lai!')),
+                      const SnackBar(
+                          content: Text('Đã sao chép thông tin biên lai!')),
                     );
                   },
                   icon: const Icon(Icons.receipt_long_rounded, size: 16),
                   label: const Text('Sao chép biên lai'),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
                   ),
                 ),
               ),
@@ -839,9 +923,11 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
                   style: FilledButton.styleFrom(
                     backgroundColor: AppColors.green,
                     padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
                   ),
-                  child: const Text('Hoàn tất', style: TextStyle(fontWeight: FontWeight.w700)),
+                  child: const Text('Hoàn tất',
+                      style: TextStyle(fontWeight: FontWeight.w700)),
                 ),
               ),
             ],
@@ -855,7 +941,8 @@ class _OnlinePaymentDialogState extends State<OnlinePaymentDialog> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: const TextStyle(fontSize: 12, color: AppColors.muted)),
+        Text(label,
+            style: const TextStyle(fontSize: 12, color: AppColors.muted)),
         Text(
           value,
           style: TextStyle(

@@ -2,19 +2,32 @@ name: dormhub_flutter
 description: Ung dung DormHub quan ly ky tuc xa sinh vien voi giao dien hien dai, responsive va phan quyen theo vai tro.
 publish_to: 'none'
 version: 1.4.0+5
+
 environment:
   sdk: '>=3.3.0 <4.0.0'
+
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+
+  # --- Firebase (Bắt buộc để kết nối Auth & Firestore) ---
+  firebase_core: ^3.8.0
+  firebase_auth: ^5.3.3
+  cloud_firestore: ^5.5.0
+
+  # --- Tiện ích & Giao diện ---
   intl: ^0.20.2
   http: ^1.2.1
   crypto: ^3.0.3
+  google_fonts: ^6.2.1        # Hỗ trợ font chữ tiếng Việt đẹp, hiện đại
+  provider: ^6.1.2            # Quản lý trạng thái đăng nhập & phân quyền (Role)
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+
 flutter:
   uses-material-design: true

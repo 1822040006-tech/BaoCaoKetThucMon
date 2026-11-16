@@ -8,21 +8,53 @@ class StudentRoomManagerPageWidget extends StatefulWidget {
   const StudentRoomManagerPageWidget({super.key});
 
   @override
-  State<StudentRoomManagerPageWidget> createState() => _StudentRoomManagerPageWidgetState();
+  State<StudentRoomManagerPageWidget> createState() =>
+      _StudentRoomManagerPageWidgetState();
 }
 
-class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWidget> {
+class _StudentRoomManagerPageWidgetState
+    extends State<StudentRoomManagerPageWidget> {
   int activeTab = 1; // 0: Sinh viên, 1: Tòa nhà & phòng
 
   final List<Map<String, String>> rooms = [
-    {'room': 'A101', 'building': 'Tòa A', 'capacity': '4 người', 'occupied': '4', 'type': '4 người — 600.000đ', 'status': 'Đầy'},
-    {'room': 'A102', 'building': 'Tòa A', 'capacity': '4 người', 'occupied': '3', 'type': '4 người — 600.000đ', 'status': '1 chỗ trống'},
-    {'room': 'B201', 'building': 'Tòa B', 'capacity': '6 người', 'occupied': '0', 'type': '6 người — 450.000đ', 'status': 'Trống'},
-    {'room': 'C304', 'building': 'Tòa C', 'capacity': '8 người', 'occupied': '7', 'type': '8 người — 350.000đ', 'status': '1 chỗ trống'},
+    {
+      'room': 'A101',
+      'building': 'Tòa A',
+      'capacity': '4 người',
+      'occupied': '4',
+      'type': '4 người — 600.000đ',
+      'status': 'Đầy'
+    },
+    {
+      'room': 'A102',
+      'building': 'Tòa A',
+      'capacity': '4 người',
+      'occupied': '3',
+      'type': '4 người — 600.000đ',
+      'status': '1 chỗ trống'
+    },
+    {
+      'room': 'B201',
+      'building': 'Tòa B',
+      'capacity': '6 người',
+      'occupied': '0',
+      'type': '6 người — 450.000đ',
+      'status': 'Trống'
+    },
+    {
+      'room': 'C304',
+      'building': 'Tòa C',
+      'capacity': '8 người',
+      'occupied': '7',
+      'type': '8 người — 350.000đ',
+      'status': '1 chỗ trống'
+    },
   ];
 
   void _showAddStudentDialog() {
-    final idController = TextEditingController(text: 'SV${DateTime.now().year}${(DemoStore.students.length + 1).toString().padLeft(3, '0')}');
+    final idController = TextEditingController(
+        text:
+            'SV${DateTime.now().year}${(DemoStore.students.length + 1).toString().padLeft(3, '0')}');
     final nameController = TextEditingController();
     final emailController = TextEditingController();
     final roomController = TextEditingController();
@@ -31,7 +63,8 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
     showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Thêm sinh viên mới', style: TextStyle(fontWeight: FontWeight.w800)),
+        title: const Text('Thêm sinh viên mới',
+            style: TextStyle(fontWeight: FontWeight.w800)),
         content: SizedBox(
           width: 420,
           child: Form(
@@ -42,14 +75,19 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
                 children: [
                   TextFormField(
                     controller: idController,
-                    decoration: const InputDecoration(labelText: 'Mã sinh viên'),
-                    validator: (val) => (val == null || val.trim().isEmpty) ? 'Vui lòng nhập mã sinh viên.' : null,
+                    decoration:
+                        const InputDecoration(labelText: 'Mã sinh viên'),
+                    validator: (val) => (val == null || val.trim().isEmpty)
+                        ? 'Vui lòng nhập mã sinh viên.'
+                        : null,
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
                     controller: nameController,
                     decoration: const InputDecoration(labelText: 'Họ và tên'),
-                    validator: (val) => (val == null || val.trim().isEmpty) ? 'Vui lòng nhập họ tên.' : null,
+                    validator: (val) => (val == null || val.trim().isEmpty)
+                        ? 'Vui lòng nhập họ tên.'
+                        : null,
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
@@ -57,7 +95,9 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(labelText: 'Email'),
                     validator: (val) {
-                      if (val == null || val.trim().isEmpty) return 'Vui lòng nhập email.';
+                      if (val == null || val.trim().isEmpty) {
+                        return 'Vui lòng nhập email.';
+                      }
                       if (!val.contains('@')) return 'Email không hợp lệ.';
                       return null;
                     },
@@ -65,8 +105,11 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
                   const SizedBox(height: 12),
                   TextFormField(
                     controller: roomController,
-                    decoration: const InputDecoration(labelText: 'Số phòng (ví dụ: A101)'),
-                    validator: (val) => (val == null || val.trim().isEmpty) ? 'Vui lòng nhập số phòng.' : null,
+                    decoration: const InputDecoration(
+                        labelText: 'Số phòng (ví dụ: A101)'),
+                    validator: (val) => (val == null || val.trim().isEmpty)
+                        ? 'Vui lòng nhập số phòng.'
+                        : null,
                   ),
                 ],
               ),
@@ -74,7 +117,9 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text('Hủy')),
+          TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: const Text('Hủy')),
           FilledButton(
             onPressed: () {
               if (!formKey.currentState!.validate()) return;
@@ -89,7 +134,10 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
               });
               Navigator.pop(dialogContext);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Đã thêm sinh viên ${nameController.text.trim()} thành công!'), behavior: SnackBarBehavior.floating),
+                SnackBar(
+                    content: Text(
+                        'Đã thêm sinh viên ${nameController.text.trim()} thành công!'),
+                    behavior: SnackBarBehavior.floating),
               );
             },
             child: const Text('Thêm mới'),
@@ -109,7 +157,8 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
     showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Thêm phòng mới', style: TextStyle(fontWeight: FontWeight.w800)),
+        title: const Text('Thêm phòng mới',
+            style: TextStyle(fontWeight: FontWeight.w800)),
         content: SizedBox(
           width: 420,
           child: Form(
@@ -120,12 +169,15 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
                 children: [
                   TextFormField(
                     controller: roomController,
-                    decoration: const InputDecoration(labelText: 'Số phòng (ví dụ: A103)'),
-                    validator: (val) => (val == null || val.trim().isEmpty) ? 'Vui lòng nhập số phòng.' : null,
+                    decoration: const InputDecoration(
+                        labelText: 'Số phòng (ví dụ: A103)'),
+                    validator: (val) => (val == null || val.trim().isEmpty)
+                        ? 'Vui lòng nhập số phòng.'
+                        : null,
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
-                    value: buildingController.text,
+                    initialValue: buildingController.text,
                     decoration: const InputDecoration(labelText: 'Tòa nhà'),
                     items: const [
                       DropdownMenuItem(value: 'Tòa A', child: Text('Tòa A')),
@@ -140,14 +192,20 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
                   const SizedBox(height: 12),
                   TextFormField(
                     controller: capacityController,
-                    decoration: const InputDecoration(labelText: 'Sức chứa (ví dụ: 4 người)'),
-                    validator: (val) => (val == null || val.trim().isEmpty) ? 'Vui lòng nhập sức chứa.' : null,
+                    decoration: const InputDecoration(
+                        labelText: 'Sức chứa (ví dụ: 4 người)'),
+                    validator: (val) => (val == null || val.trim().isEmpty)
+                        ? 'Vui lòng nhập sức chứa.'
+                        : null,
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
                     controller: typeController,
-                    decoration: const InputDecoration(labelText: 'Loại phòng & Đơn giá'),
-                    validator: (val) => (val == null || val.trim().isEmpty) ? 'Vui lòng nhập loại phòng.' : null,
+                    decoration: const InputDecoration(
+                        labelText: 'Loại phòng & Đơn giá'),
+                    validator: (val) => (val == null || val.trim().isEmpty)
+                        ? 'Vui lòng nhập loại phòng.'
+                        : null,
                   ),
                 ],
               ),
@@ -155,7 +213,9 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text('Hủy')),
+          TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: const Text('Hủy')),
           FilledButton(
             onPressed: () {
               if (!formKey.currentState!.validate()) return;
@@ -171,7 +231,10 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
               });
               Navigator.pop(dialogContext);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Đã thêm phòng ${roomController.text.trim()} thành công!'), behavior: SnackBarBehavior.floating),
+                SnackBar(
+                    content: Text(
+                        'Đã thêm phòng ${roomController.text.trim()} thành công!'),
+                    behavior: SnackBarBehavior.floating),
               );
             },
             child: const Text('Thêm mới'),
@@ -188,15 +251,20 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
+        Wrap(
+          spacing: 12,
+          runSpacing: 8,
           children: [
             InkWell(
               onTap: () => setState(() => activeTab = 0),
               borderRadius: BorderRadius.circular(10),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
-                  color: activeTab == 0 ? const Color(0xFF1D61F2) : const Color(0xFFF1F5F9),
+                  color: activeTab == 0
+                      ? const Color(0xFF1D61F2)
+                      : const Color(0xFFF1F5F9),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
@@ -204,19 +272,22 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: activeTab == 0 ? Colors.white : const Color(0xFF64748B),
+                    color:
+                        activeTab == 0 ? Colors.white : const Color(0xFF64748B),
                   ),
                 ),
               ),
             ),
-            const SizedBox(width: 12),
             InkWell(
               onTap: () => setState(() => activeTab = 1),
               borderRadius: BorderRadius.circular(10),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
-                  color: activeTab == 1 ? const Color(0xFF1D61F2) : const Color(0xFFF1F5F9),
+                  color: activeTab == 1
+                      ? const Color(0xFF1D61F2)
+                      : const Color(0xFFF1F5F9),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
@@ -224,7 +295,8 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: activeTab == 1 ? Colors.white : const Color(0xFF64748B),
+                    color:
+                        activeTab == 1 ? Colors.white : const Color(0xFF64748B),
                   ),
                 ),
               ),
@@ -248,39 +320,80 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
                 dataRowMinHeight: 52,
                 dataRowMaxHeight: 62,
                 columns: const [
-                  DataColumn(label: Text('MÃ SV', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 11, color: AppColors.muted))),
-                  DataColumn(label: Text('HỌ TÊN', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 11, color: AppColors.muted))),
-                  DataColumn(label: Text('EMAIL', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 11, color: AppColors.muted))),
-                  DataColumn(label: Text('PHÒNG', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 11, color: AppColors.muted))),
-                  DataColumn(label: Text('TRẠNG THÁI', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 11, color: AppColors.muted))),
+                  DataColumn(
+                      label: Text('MÃ SV',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 11,
+                              color: AppColors.muted))),
+                  DataColumn(
+                      label: Text('HỌ TÊN',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 11,
+                              color: AppColors.muted))),
+                  DataColumn(
+                      label: Text('EMAIL',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 11,
+                              color: AppColors.muted))),
+                  DataColumn(
+                      label: Text('PHÒNG',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 11,
+                              color: AppColors.muted))),
+                  DataColumn(
+                      label: Text('TRẠNG THÁI',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 11,
+                              color: AppColors.muted))),
                 ],
-                rows: students.map((s) => DataRow(cells: [
-                  DataCell(Text(s['id'] ?? '', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
-                  DataCell(Text(s['name'] ?? '', style: const TextStyle(fontSize: 12))),
-                  DataCell(Text(s['email'] ?? '', style: const TextStyle(fontSize: 12))),
-                  DataCell(Text(s['room'] ?? '', style: const TextStyle(fontSize: 12))),
-                  DataCell(StatusChip(label: s['status'] ?? '')),
-                ])).toList(),
+                rows: students
+                    .map((s) => DataRow(cells: [
+                          DataCell(Text(s['id'] ?? '',
+                              style: const TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.w700))),
+                          DataCell(Text(s['name'] ?? '',
+                              style: const TextStyle(fontSize: 12))),
+                          DataCell(Text(s['email'] ?? '',
+                              style: const TextStyle(fontSize: 12))),
+                          DataCell(Text(s['room'] ?? '',
+                              style: const TextStyle(fontSize: 12))),
+                          DataCell(StatusChip(label: s['status'] ?? '')),
+                        ]))
+                    .toList(),
               ),
             ),
           ),
         ] else ...[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            spacing: 12,
+            runSpacing: 8,
             children: [
               const Text(
                 'Tòa nhà & phòng',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: AppColors.text),
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.text),
               ),
               FilledButton.icon(
                 style: FilledButton.styleFrom(
                   backgroundColor: const Color(0xFF1D61F2),
-                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
                 ),
                 onPressed: _showAddRoomDialog,
                 icon: const Icon(Icons.add, size: 18),
-                label: const Text('+ Thêm phòng', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700)),
+                label: const Text('+ Thêm phòng',
+                    style:
+                        TextStyle(fontSize: 13, fontWeight: FontWeight.w700)),
               ),
             ],
           ),
@@ -294,12 +407,16 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
-                childAspectRatio: isMobile ? 1.35 : 1.55,
+                childAspectRatio: isMobile ? 1.0 : 1.55,
                 children: [
-                  _buildingCard('Tòa A', 'Nam', 52, 60, '8 phòng còn trống', const Color(0xFF1D61F2)),
-                  _buildingCard('Tòa B', 'Nữ', 47, 50, '3 phòng còn trống', const Color(0xFFEC4899)),
-                  _buildingCard('Tòa C', 'Hỗn hợp', 68, 80, '12 phòng còn trống', const Color(0xFF10B981)),
-                  _buildingCard('Tòa D', 'Nam', 43, 58, '15 phòng còn trống', const Color(0xFFF97316)),
+                  _buildingCard('Tòa A', 'Nam', 52, 60, '8 phòng còn trống',
+                      const Color(0xFF1D61F2)),
+                  _buildingCard('Tòa B', 'Nữ', 47, 50, '3 phòng còn trống',
+                      const Color(0xFFEC4899)),
+                  _buildingCard('Tòa C', 'Hỗn hợp', 68, 80,
+                      '12 phòng còn trống', const Color(0xFF10B981)),
+                  _buildingCard('Tòa D', 'Nam', 43, 58, '15 phòng còn trống',
+                      const Color(0xFFF97316)),
                 ],
               );
             },
@@ -322,23 +439,68 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
                     dataRowMaxHeight: 70,
                     horizontalMargin: 20,
                     columnSpacing: 32,
-                    headingRowColor: WidgetStateProperty.all(const Color(0xFFFAFBFC)),
+                    headingRowColor:
+                        WidgetStateProperty.all(const Color(0xFFFAFBFC)),
                     columns: const [
-                      DataColumn(label: Text('PHÒNG', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: Color(0xFF64748B)))),
-                      DataColumn(label: Text('TÒA', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: Color(0xFF64748B)))),
-                      DataColumn(label: Text('SỨC CHÚA', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: Color(0xFF64748B)))),
-                      DataColumn(label: Text('ĐANG Ở', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: Color(0xFF64748B)))),
-                      DataColumn(label: Text('LOẠI PHÒNG', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: Color(0xFF64748B)))),
-                      DataColumn(label: Text('TÌNH TRẠNG', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: Color(0xFF64748B)))),
+                      DataColumn(
+                          label: Text('PHÒNG',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF64748B)))),
+                      DataColumn(
+                          label: Text('TÒA',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF64748B)))),
+                      DataColumn(
+                          label: Text('SỨC CHÚA',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF64748B)))),
+                      DataColumn(
+                          label: Text('ĐANG Ở',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF64748B)))),
+                      DataColumn(
+                          label: Text('LOẠI PHÒNG',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF64748B)))),
+                      DataColumn(
+                          label: Text('TÌNH TRẠNG',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF64748B)))),
                     ],
-                    rows: rooms.map((r) => DataRow(cells: [
-                      DataCell(Text(r['room']!, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.text))),
-                      DataCell(Text(r['building']!, style: const TextStyle(fontSize: 13, color: AppColors.text))),
-                      DataCell(Text(r['capacity']!, style: const TextStyle(fontSize: 13, color: AppColors.text))),
-                      DataCell(Text(r['occupied']!, style: const TextStyle(fontSize: 13, color: AppColors.text))),
-                      DataCell(Text(r['type']!, style: const TextStyle(fontSize: 13, color: AppColors.text))),
-                      DataCell(_roomStatusChip(r['status']!)),
-                    ])).toList(),
+                    rows: rooms
+                        .map((r) => DataRow(cells: [
+                              DataCell(Text(r['room']!,
+                                  style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.text))),
+                              DataCell(Text(r['building']!,
+                                  style: const TextStyle(
+                                      fontSize: 13, color: AppColors.text))),
+                              DataCell(Text(r['capacity']!,
+                                  style: const TextStyle(
+                                      fontSize: 13, color: AppColors.text))),
+                              DataCell(Text(r['occupied']!,
+                                  style: const TextStyle(
+                                      fontSize: 13, color: AppColors.text))),
+                              DataCell(Text(r['type']!,
+                                  style: const TextStyle(
+                                      fontSize: 13, color: AppColors.text))),
+                              DataCell(_roomStatusChip(r['status']!)),
+                            ]))
+                        .toList(),
                   ),
                 ),
               ),
@@ -349,7 +511,8 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
     );
   }
 
-  Widget _buildingCard(String name, String tag, int current, int total, String emptyCount, Color accentColor) {
+  Widget _buildingCard(String name, String tag, int current, int total,
+      String emptyCount, Color accentColor) {
     final progress = (current / total).clamp(0.0, 1.0);
     return Container(
       padding: const EdgeInsets.all(18),
@@ -357,24 +520,47 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: const [BoxShadow(color: Color(0x040D2148), blurRadius: 10, offset: Offset(0, 3))],
+        boxShadow: const [
+          BoxShadow(
+              color: Color(0x040D2148), blurRadius: 10, offset: Offset(0, 3))
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            spacing: 6,
+            runSpacing: 2,
             children: [
-              Text(name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: AppColors.text)),
-              Text(tag, style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8), fontWeight: FontWeight.w500)),
+              Text(name,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.text)),
+              Text(tag,
+                  style: const TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF94A3B8),
+                      fontWeight: FontWeight.w500)),
             ],
           ),
           RichText(
             text: TextSpan(
               children: [
-                TextSpan(text: '$current ', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: accentColor)),
-                TextSpan(text: '/$total', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF94A3B8))),
+                TextSpan(
+                    text: '$current ',
+                    style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w900,
+                        color: accentColor)),
+                TextSpan(
+                    text: '/$total',
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF94A3B8))),
               ],
             ),
           ),
@@ -387,7 +573,11 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
               color: accentColor,
             ),
           ),
-          Text(emptyCount, style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8), fontWeight: FontWeight.w500)),
+          Text(emptyCount,
+              style: const TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFF94A3B8),
+                  fontWeight: FontWeight.w500)),
         ],
       ),
     );
@@ -416,7 +606,8 @@ class _StudentRoomManagerPageWidgetState extends State<StudentRoomManagerPageWid
       ),
       child: Text(
         status,
-        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: text),
+        style:
+            TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: text),
       ),
     );
   }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../data/demo_store.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/common_widgets.dart';
-import '../../widgets/online_payment_dialog.dart';
 
 class StudentBillingPage extends StatefulWidget {
   final String email;
@@ -18,12 +17,6 @@ class StudentBillingPage extends StatefulWidget {
 class _StudentBillingPageState extends State<StudentBillingPage> {
   int _studentBillingTab = 0;
   String? _selectedStudentBillId;
-
-  void _notice(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,24 +159,13 @@ class _StudentBillingPageState extends State<StudentBillingPage> {
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
                               FilledButton.icon(
-                                onPressed: () {
-                                  OnlinePaymentDialog.show(
-                                    context,
-                                    bill: selectedBill,
-                                    payerEmail: widget.email,
-                                    payerName: widget.userName,
-                                    onPaymentSuccess: () {
-                                      setState(() {});
-                                      _notice('Thanh toán thành công qua cổng trực tuyến!');
-                                    },
-                                  );
-                                },
+                                onPressed: null,
                                 style: FilledButton.styleFrom(
                                   backgroundColor: AppColors.green,
                                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                                 ),
                                 icon: const Icon(Icons.qr_code_scanner_rounded, size: 18),
-                                label: const Text('Thanh toán Online (VietQR / VNPay)'),
+                                label: const Text('Thanh toán chưa khả dụng'),
                               ),
                               OutlinedButton.icon(
                                 onPressed: () => setState(() => _studentBillingTab = 1),
@@ -206,7 +188,7 @@ class _StudentBillingPageState extends State<StudentBillingPage> {
         ] else if (_studentBillingTab == 1) ...[
           const Text('Thanh toán hóa đơn', style: TextStyle(fontSize: 21, fontWeight: FontWeight.w800, letterSpacing: -.35, color: AppColors.text)),
           const SizedBox(height: 7),
-          const Text('Chọn hóa đơn để quét mã VietQR Napas 247 hoặc thanh toán qua cổng VNPay / MoMo.', style: TextStyle(color: AppColors.muted, fontSize: 13)),
+          const Text('Thanh toán trực tuyến chưa khả dụng. Chỉ quản lý ký túc xá có thể ghi nhận thanh toán sau khi đối soát.', style: TextStyle(color: AppColors.muted, fontSize: 13)),
           const SizedBox(height: 20),
           if (unpaidBills.isEmpty)
             _billingEmptyState('Bạn không có khoản phí chưa thanh toán', 'Các hóa đơn đã được thanh toán sẽ xuất hiện trong mục Lịch sử.')
@@ -233,32 +215,17 @@ class _StudentBillingPageState extends State<StudentBillingPage> {
                           ],
                         );
                         final onlinePayButton = FilledButton.icon(
-                          onPressed: () {
-                            OnlinePaymentDialog.show(
-                              context,
-                              bill: bill,
-                              payerEmail: widget.email,
-                              payerName: widget.userName,
-                              onPaymentSuccess: () {
-                                setState(() {});
-                                _notice('Thanh toán hóa đơn ${bill['id']} thành công!');
-                              },
-                            );
-                          },
+                          onPressed: null,
                           style: FilledButton.styleFrom(
                             backgroundColor: AppColors.green,
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                           ),
                           icon: const Icon(Icons.qr_code_scanner_rounded, size: 18),
-                          label: const Text('Thanh toán Online'),
+                          label: const Text('Thanh toán chưa khả dụng'),
                         );
-                        final demoButton = TextButton(
-                          onPressed: () {
-                            setState(() => bill['status'] = 'Đã thanh toán');
-                            DemoStore.addAudit('Thanh toán demo ${bill['id']}', widget.userName);
-                            _notice('Đã cập nhật trạng thái trong bản demo.');
-                          },
-                          child: const Text('Thanh toán demo', style: TextStyle(fontSize: 12, color: AppColors.muted)),
+                        const demoButton = TextButton(
+                          onPressed: null,
+                          child: Text('Chờ đối soát', style: TextStyle(fontSize: 12, color: AppColors.muted)),
                         );
 
                         if (compact) {
